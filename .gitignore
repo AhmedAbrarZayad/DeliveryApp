@@ -1,0 +1,6 @@
+.env
+node_modules
+
+# Google Cloud Service Account credentials
+backend/delivery-app-service.json
+*-service.json

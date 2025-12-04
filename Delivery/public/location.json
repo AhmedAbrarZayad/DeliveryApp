@@ -1,0 +1,142 @@
+[
+  {
+    "district": "Dhaka",
+    "division": "Dhaka",
+    "headquarters": "Dhaka",
+    "lat": 23.8103,
+    "lng": 90.4125
+  },
+  {
+    "district": "Chattogram",
+    "division": "Chattogram",
+    "headquarters": "Chattogram",
+    "lat": 22.3569,
+    "lng": 91.7832
+  },
+  {
+    "district": "Khulna",
+    "division": "Khulna",
+    "headquarters": "Khulna",
+    "lat": 22.8456,
+    "lng": 89.5403
+  },
+  {
+    "district": "Rajshahi",
+    "division": "Rajshahi",
+    "headquarters": "Rajshahi",
+    "lat": 24.3745,
+    "lng": 88.6042
+  },
+  {
+    "district": "Barishal",
+    "division": "Barishal",
+    "headquarters": "Barishal",
+    "lat": 22.7010,
+    "lng": 90.3535
+  },
+  {
+    "district": "Sylhet",
+    "division": "Sylhet",
+    "headquarters": "Sylhet",
+    "lat": 24.8949,
+    "lng": 91.8687
+  },
+  {
+    "district": "Rangpur",
+    "division": "Rangpur",
+    "headquarters": "Rangpur",
+    "lat": 25.7439,
+    "lng": 89.2752
+  },
+  {
+    "district": "Mymensingh",
+    "division": "Mymensingh",
+    "headquarters": "Mymensingh",
+    "lat": 24.7471,
+    "lng": 90.4203
+  },
+  {
+    "district": "Cumilla",
+    "division": "Chattogram",
+    "headquarters": "Cumilla",
+    "lat": 23.4679,
+    "lng": 91.1809
+  },
+  {
+    "district": "Jashore",
+    "division": "Khulna",
+    "headquarters": "Jashore",
+    "lat": 23.1706,
+    "lng": 89.2245
+  },
+  {
+    "district": "Cox's Bazar",
+    "division": "Chattogram",
+    "headquarters": "Cox's Bazar",
+    "lat": 21.4272,
+    "lng": 92.0058
+  },
+  {
+    "district": "Gazipur",
+    "division": "Dhaka",
+    "headquarters": "Gazipur",
+    "lat": 24.0020,
+    "lng": 90.4263
+  },
+  {
+    "district": "Narayanganj",
+    "division": "Dhaka",
+    "headquarters": "Narayanganj",
+    "lat": 23.6236,
+    "lng": 90.5014
+  },
+  {
+    "district": "Tangail",
+    "division": "Dhaka",
+    "headquarters": "Tangail",
+    "lat": 24.2500,
+    "lng": 89.9167
+  },
+  {
+    "district": "Bogra",
+    "division": "Rajshahi",
+    "headquarters": "Bogra",
+    "lat": 24.8460,
+    "lng": 89.3700
+  },
+  {
+    "district": "Dinajpur",
+    "division": "Rangpur",
+    "headquarters": "Dinajpur",
+    "lat": 25.6236,
+    "lng": 88.6376
+  },
+  {
+    "district": "Pabna",
+    "division": "Rajshahi",
+    "headquarters": "Pabna",
+    "lat": 24.0060,
+    "lng": 89.2385
+  },
+  {
+    "district": "Kushtia",
+    "division": "Khulna",
+    "headquarters": "Kushtia",
+    "lat": 23.9010,
+    "lng": 89.1200
+  },
+  {
+    "district": "Faridpur",
+    "division": "Dhaka",
+    "headquarters": "Faridpur",
+    "lat": 23.6076,
+    "lng": 89.8434
+  },
+  {
+    "district": "Noakhali",
+    "division": "Chattogram",
+    "headquarters": "Maijdee (Noakhali Sadar)",
+    "lat": 22.8500,
+    "lng": 91.1000
+  }
+]

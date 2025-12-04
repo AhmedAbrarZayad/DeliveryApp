@@ -1,0 +1,115 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "name": "Food Delivery",
+      "description": "Hot meals delivered from nearby restaurants.",
+      "icon": "food",
+      "image_url": "https://img.freepik.com/premium-vector/glowing-neon-food-delivery-sign-with-delivering-scooter-dark-brick-wall-background-fast-delivery-symbol-neon-style-fast-food-concept-illustration-vector_153629-1013.jpg",
+      "estimated_time_minutes": 30,
+      "base_fee": 30,
+      "per_km_fee": 12,
+      "availability": true
+    },
+    {
+      "id": 2,
+      "name": "Grocery Delivery",
+      "description": "Get groceries delivered from supermarkets and local shops.",
+      "icon": "grocery",
+      "image_url": "https://www.brownstoner.com/wp-content/uploads/2021/11/jokr-warehouse-mn-grocery-delivery-apps-nyc-amny-2021-gholtermann.jpeg",
+      "estimated_time_minutes": 45,
+      "base_fee": 20,
+      "per_km_fee": 10,
+      "availability": true
+    },
+    {
+      "id": 3,
+      "name": "Parcel Delivery",
+      "description": "Door-to-door parcel delivery within the city.",
+      "icon": "parcel",
+      "image_url": "https://as1.ftcdn.net/jpg/02/40/76/12/1000_F_240761296_IOkZlFSWXUU0hLERny82tCfeXB8zc6Vk.jpg",
+      "estimated_time_minutes": 60,
+      "base_fee": 50,
+      "per_km_fee": 15,
+      "max_weight_kg": 10,
+      "availability": true
+    },
+    {
+      "id": 4,
+      "name": "Medicine Delivery",
+      "description": "Prescription and over-the-counter medicines delivered quickly.",
+      "icon": "medicine",
+      "image_url": "https://img.freepik.com/free-photo/pills-dark-environment_23-2151438412.jpg?semt=ais_hybrid&w=740&q=80",
+      "estimated_time_minutes": 25,
+      "base_fee": 25,
+      "per_km_fee": 10,
+      "availability": true
+    },
+    {
+      "id": 5,
+      "name": "Fresh Produce Delivery",
+      "description": "Fresh vegetables, fish, and meat delivered.",
+      "icon": "fresh",
+      "image_url": "https://cdn.prod.website-files.com/65e8c28f089978cd40da4f5c/66c62cc20f8b19a270824aee_Local%20Line%20Blog%20Feature%20Image_Offer%20Home%20Delivery%20For%20Your%20Farm.webp",
+      "estimated_time_minutes": 40,
+      "base_fee": 30,
+      "per_km_fee": 12,
+      "availability": false
+    },
+    {
+      "id": 6,
+      "name": "Document Courier",
+      "description": "Secure and fast delivery of documents and files.",
+      "icon": "document",
+      "image_url": "https://thumbs.dreamstime.com/b/sealed-letter-red-wax-stamp-antique-parchment-paper-close-up-view-dark-marble-surface-suggests-secret-message-vintage-404634788.jpg",
+      "estimated_time_minutes": 35,
+      "base_fee": 40,
+      "per_km_fee": 12,
+      "availability": true
+    },
+    {
+      "id": 7,
+      "name": "Flower Delivery",
+      "description": "Fresh flower bouquets delivered for special occasions.",
+      "icon": "flower",
+      "image_url": "https://hobbyfloristkl.com/wp-content/uploads/2021/09/s2.jpg",
+      "estimated_time_minutes": 50,
+      "base_fee": 35,
+      "per_km_fee": 12,
+      "availability": true
+    },
+    {
+      "id": 8,
+      "name": "Laundry Pickup & Delivery",
+      "description": "Pick up dirty clothes and deliver them washed & folded.",
+      "icon": "laundry",
+      "image_url": "https://laundroville.ae/wp-content/uploads/2025/03/corporate-cleaning-1024x585-1.jpg",
+      "estimated_time_minutes": 120,
+      "base_fee": 60,
+      "per_km_fee": 15,
+      "availability": true
+    },
+    {
+      "id": 9,
+      "name": "Pet Supplies Delivery",
+      "description": "Deliver pet food, toys, and essentials.",
+      "icon": "pet",
+      "image_url": "https://media.istockphoto.com/id/1892103156/photo/a-young-man-and-his-pup-at-the-pet-shop.jpg?s=612x612&w=0&k=20&c=tdQ8Ad3E36TZjndYhEiJ9u3pgQfpxXEpvuGP2eZ2OmU=",
+      "estimated_time_minutes": 35,
+      "base_fee": 25,
+      "per_km_fee": 10,
+      "availability": true
+    },
+    {
+      "id": 10,
+      "name": "Home Essentials Delivery",
+      "description": "Deliver household essentials like cleaning products and toiletries.",
+      "icon": "home",
+      "image_url": "https://media.istockphoto.com/id/1221101939/photo/delivery-concept-asian-man-hand-accepting-a-delivery-boxes-from-professional-deliveryman-at.jpg?s=612x612&w=0&k=20&c=jvZ_phbXmzOrCCZiGn8ZQO99a5skBJlclbujI5jGam8=",
+      "estimated_time_minutes": 45,
+      "base_fee": 30,
+      "per_km_fee": 10,
+      "availability": true
+    }
+  ]
+}
