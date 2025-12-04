@@ -43,6 +43,15 @@ const verifFirebaseToken = async (req, res, next) => {
   next();
 }
 
+const verifyAdmin = async (req, res, next) => {
+  const email = req.decodedEmail;
+  const user = await userCollection.findOne({ email: email });
+  if (!user || user?.role !== 'admin') {
+    return res.status(403).send({ message: 'Forbidden access' });
+  }
+  next();
+}
+
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const { stat } = require('fs');
 const uri = process.env.MONGO_URI;
