@@ -29,6 +29,7 @@ import { useAuth } from '../../Hooks/useAuth';
 import Button from '@mui/material/Button';
 import { NavLink } from 'react-router';
 import Avatar from '@mui/material/Avatar';
+import useRole from '../../Hooks/useRole';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,6 +73,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function NavBar({ isDarkMode, toggleTheme }) {
   const { user, logout } = useAuth();
+  const {isLoading, role} = useRole();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState(null);
@@ -374,9 +376,13 @@ export default function NavBar({ isDarkMode, toggleTheme }) {
             <ListItem disablePadding>
               <ListItemButton><NavLink to="/approve-riders">Approve Riders</NavLink></ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton><NavLink to="/users-management">Users Management</NavLink></ListItemButton>
-            </ListItem>
+            {
+              role === 'admin' && (
+                <ListItem disablePadding>
+                  <ListItemButton><NavLink to="/users-management">Users Management</NavLink></ListItemButton>
+                </ListItem>
+              )
+            }
             {user && (
               <>
                 <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.12)', my: 1 }} />

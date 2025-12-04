@@ -14,6 +14,9 @@ import History from "../Components/MyDashboard/History";
 import BeARider from "../Components/BeARider/BeARider";
 import ApproveRiders from "../Components/ApproveRiders/ApproveRiders";
 import UsersManagement from "../Components/UsersManagement/UsersManagement";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import ForbiddenPage from "../Components/ForbiddenPage/ForbiddenPage";
 
 export const router = createBrowserRouter([
   {
@@ -26,41 +29,41 @@ export const router = createBrowserRouter([
         },
         {
           path: "add-a-parcel",
-          element: <AddAParcel />
+          element: <PrivateRoute><AddAParcel /></PrivateRoute>
         },
         {
           path: "dashboard",
-          element: <MyDashboard />,
+          element: <PrivateRoute><MyDashboard /></PrivateRoute>,
           children: [
             {
               index: true,
-              element: <MyParcels />
+              element: <PrivateRoute><MyParcels /></PrivateRoute>
             },
             {
               path: "payment/:id",
-              element: <Payment />
+              element: <PrivateRoute><Payment /></PrivateRoute>
             },
             {
               path: "payment-success",
-              element: <PaymentSuccessful />
+              element: <PrivateRoute><PaymentSuccessful /></PrivateRoute>
             },
           ]
         },
         {
           path: "history",
-          element: <History />
+          element: <PrivateRoute><History /></PrivateRoute>
         },
         {
           path: "be-a-rider",
-          element: <BeARider />
+          element: <PrivateRoute><BeARider /></PrivateRoute>
         },
         {
           path: "/approve-riders",
-          element: <ApproveRiders />
+          element: <AdminRoute><ApproveRiders /></AdminRoute>
         },
         {
           path: "/users-management",
-          element: <UsersManagement />
+          element: <AdminRoute><UsersManagement /></AdminRoute>
         }
     ],
   },
@@ -77,5 +80,9 @@ export const router = createBrowserRouter([
           element: <Register />
         }
     ]
+  },
+  {
+    path: "/forbidden",
+    element: <ForbiddenPage />
   }
 ]);
