@@ -13,8 +13,13 @@ function generateTrackingId() {
 }
 
 const app = express();
-var admin = require("firebase-admin");
+const admin = require("firebase-admin");
 const serviceAccount = require("./delivery-app-service.json");
+
+
+const decoded = Buffer.from(process.env.FB_SERVICE_KEY, 'base64').toString('utf8');
+
+const serviceAccountObj = JSON.parse(decoded);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -75,7 +80,7 @@ async function connectDB() {
   trackingCollection = db.collection("tracking");
 }
 
-await connectDB();
+connectDB();
 
 // Tracking Logger
 const logTracking = async (trackingId, status, email, pickupEmail = 'None') => {
