@@ -60,9 +60,13 @@ const verifyRider = async (req, res, next) => {
   next();
 };
 
+
+// Basic route
 app.get('/', (req, res) => {
   res.send({ message: 'Delivery API is running' });
 });
+
+
 
 // MongoDB
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
