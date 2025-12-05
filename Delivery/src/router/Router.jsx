@@ -17,6 +17,8 @@ import UsersManagement from "../Components/UsersManagement/UsersManagement";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import ForbiddenPage from "../Components/ForbiddenPage/ForbiddenPage";
+import Pickup from "../Components/Pickup/Pickup";
+import RiderRoute from "../RiderRoute/RiderRoute";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +66,10 @@ export const router = createBrowserRouter([
         {
           path: "/users-management",
           element: <AdminRoute><UsersManagement /></AdminRoute>
+        },
+        {
+          path: "/pickup-parcels",
+          element: <RiderRoute><Pickup /></RiderRoute>
         }
     ],
   },

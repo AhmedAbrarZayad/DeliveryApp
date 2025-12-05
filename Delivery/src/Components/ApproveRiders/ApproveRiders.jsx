@@ -17,8 +17,8 @@ const ApproveRiders = () => {
     });
 
     console.log('Pending Riders:', user);
-    const handleApprove = async (id) => {
-        await axiosSecure.patch(`/riders/${id}`, {email:user?.email, status: 'approved' })
+    const handleApprove = async (id, email) => {
+        await axiosSecure.patch(`/riders/${id}`, {email: email, status: 'approved' })
         .then((res) => {
             if(res.data.modifiedCount){
                 Swal.fire({
@@ -34,8 +34,8 @@ const ApproveRiders = () => {
         })
     };
 
-    const handleReject = async (id) => {
-        await axiosSecure.patch(`/riders/${id}`, {email:user?.email, status: 'rejected' })
+    const handleReject = async (id, email) => {
+        await axiosSecure.patch(`/riders/${id}`, {email: email, status: 'rejected' })
         .then((res) => {
             if(res.data.modifiedCount){
                 Swal.fire({
@@ -81,7 +81,7 @@ const ApproveRiders = () => {
                             </div>
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
                                 <button
-                                    onClick={() => handleApprove(rider._id)}
+                                    onClick={() => handleApprove(rider._id, rider.email)}
                                     style={{
                                         padding: '0.5rem 1rem',
                                         border: 'none',
@@ -94,7 +94,7 @@ const ApproveRiders = () => {
                                     Approve
                                 </button>
                                 <button
-                                    onClick={() => handleReject(rider._id)}
+                                    onClick={() => handleReject(rider._id, rider.email)}
                                     style={{
                                         padding: '0.5rem 1rem',
                                         border: 'none',

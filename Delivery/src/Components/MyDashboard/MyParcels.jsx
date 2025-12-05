@@ -52,7 +52,6 @@ const MyParcels = () => {
 
     const handleView = (id) => {
         console.log("View details:", id);
-        // navigate(`/dashboard/parcel/${id}`);
     };
 
     if (isLoading) {
@@ -85,6 +84,7 @@ const MyParcels = () => {
                                 <th>Hazardous</th>
                                 <th>Speed</th>
                                 <th>Payment</th>
+                                <th>Delivery Status</th>
                                 <th>Price</th>
                                 <th>Actions</th>
                             </tr>
@@ -128,7 +128,7 @@ const MyParcels = () => {
 
                                     <td className="capitalize">{p.deliverySpeed}</td>
 
-                                    {/* ⭐ Payment Status Column Updated */}
+                                    {/* Payment Status Column */}
                                     <td className="uppercase">
                                         {(p.paymentMethod === 'cod-sender' || p.paymentMethod === 'cod-receiver') ? (
                                             <span className="px-2 py-1 rounded-md text-xs font-semibold bg-yellow-500 text-white">
@@ -145,6 +145,31 @@ const MyParcels = () => {
                                             >
                                                 Pay Now
                                             </NavLink>
+                                        )}
+                                    </td>
+
+                                    {/* ⭐ DELIVERY STATUS COLUMN ADDED HERE */}
+                                    <td>
+                                        {p.paymentStatus !== "paid" ? (
+                                            <span className="px-2 py-1 rounded-md text-xs font-semibold bg-yellow-500 text-white">
+                                                Payment Pending
+                                            </span>
+                                        ) : (
+                                            <span
+                                                className={`px-2 py-1 rounded-md text-xs font-semibold 
+                                                    ${
+                                                        p.deliveryStatus === "delivered"
+                                                            ? "bg-green-600 text-white"
+                                                            : p.deliveryStatus === "in-transit"
+                                                            ? "bg-blue-600 text-white"
+                                                            : p.deliveryStatus === "pending"
+                                                            ? "bg-orange-500 text-white"
+                                                            : "bg-gray-400 text-white"
+                                                    }
+                                                `}
+                                            >
+                                                {p.deliveryStatus || "Unknown"}
+                                            </span>
                                         )}
                                     </td>
 

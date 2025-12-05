@@ -377,6 +377,13 @@ export default function NavBar({ isDarkMode, toggleTheme }) {
               <ListItemButton><NavLink to="/approve-riders">Approve Riders</NavLink></ListItemButton>
             </ListItem>
             {
+              (role === 'rider' || role === 'admin') && (
+                <ListItem disablePadding>
+                  <ListItemButton><NavLink to="/pickup-parcels">Pickup Parcels</NavLink></ListItemButton>
+                </ListItem>
+              )
+            }
+            {
               role === 'admin' && (
                 <ListItem disablePadding>
                   <ListItemButton><NavLink to="/users-management">Users Management</NavLink></ListItemButton>

@@ -29,7 +29,6 @@ app.use(express.json());
 
 const verifFirebaseToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
-  console.log("Firebase token:", token);
   if (!token) {
     return res.status(401).send({ message: 'Unauthorized' });
   }
@@ -47,6 +46,15 @@ const verifyAdmin = async (req, res, next) => {
   const email = req.decodedEmail;
   const user = await userCollection.findOne({ email: email });
   if (!user || user?.role !== 'admin') {
+    return res.status(403).send({ message: 'Forbidden access' });
+  }
+  next();
+}
+
+const verifyRider = async (req, res, next) => {
+  const email = req.decodedEmail;
+  const user = await userCollection.findOne({ email:email });
+  if (!user || (user?.role !== 'rider' && user?.role !== 'admin')) {
     return res.status(403).send({ message: 'Forbidden access' });
   }
   next();
@@ -191,6 +199,7 @@ app.patch('/payment-success', async (req, res) => {
     const update = {
       $set: {
         paymentStatus: 'paid',
+        deliveryStatus: 'pending',
         trackingId: generateTrackingId()
       }
     }
@@ -297,6 +306,31 @@ app.patch('/riders/:id', async (req, res) => {
     }
     await userCollection.updateOne(userQuery, userUpdate);
   }
+  res.send(result);
+})
+
+app.get('/pending-parcels', verifFirebaseToken, verifyRider, async (req, res) => {
+  const query = { deliveryStatus: 'pending' };
+  const parcels = await parcelCollection.find(query).toArray();
+  res.send(parcels);
+});
+
+app.patch('/pick-parcel/:id', verifFirebaseToken, verifyRider, async (req, res) => {
+  const id = req.params.id;
+  const riderEmail = req.decodedEmail;
+  const query = { _id: new ObjectId(id) };
+  const update = {
+    $set: {
+      deliveryStatus: 'picked',
+      riderEmail: riderEmail,
+      pickedAt: new Date()
+    }
+  }
+  const chk = await parcelCollection.findOne(query);
+  if(chk.deliveryStatus !== 'pending'){
+    return res.status(400).send({ message: 'Parcel is not available for pickup' });
+  }
+  const result = await parcelCollection.updateOne(query, update);
   res.send(result);
 })
 // Start server
