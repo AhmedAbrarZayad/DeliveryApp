@@ -14,12 +14,11 @@ function generateTrackingId() {
 
 const app = express();
 const admin = require("firebase-admin");
-const serviceAccount = require("./delivery-app-service.json");
 
 
 const decoded = Buffer.from(process.env.FB_SERVICE_KEY, 'base64').toString('utf8');
 
-const serviceAccountObj = JSON.parse(decoded);
+const serviceAccount = JSON.parse(decoded);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -61,6 +60,10 @@ const verifyRider = async (req, res, next) => {
   next();
 };
 
+app.get('/', (req, res) => {
+  res.send({ message: 'Delivery API is running' });
+});
+
 // MongoDB
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = process.env.MONGO_URI;
@@ -97,6 +100,7 @@ const logTracking = async (trackingId, status, email, pickupEmail = 'None') => {
 // ------------------------------
 // ROUTES
 // ------------------------------
+// Add this after your middleware setup, before other routes
 
 app.get('/users', verifFirebaseToken, async (req, res) => {
   res.send(await userCollection.find().toArray());
