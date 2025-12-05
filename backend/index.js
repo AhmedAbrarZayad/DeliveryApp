@@ -346,4 +346,11 @@ app.get('/tracking/:trackingId', verifFirebaseToken, async (req, res) => {
   res.send(logs);
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+// Export for Vercel serverless
+module.exports = app;
+
+// Only listen when running locally
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
