@@ -7,7 +7,7 @@ const crypto = require('crypto');
 // Generate tracking ID
 function generateTrackingId() {
   const prefix = "DEL";
-  const date = new Date().toISOString().slice(0,10).replace(/-/g,"");
+  const date = new Date().toISOString().slice(0, 10).replace(/-/g, "");
   const randomBytes = crypto.randomBytes(8).toString('hex').toUpperCase();
   return `${prefix}-${date}-${randomBytes}`;
 }
@@ -25,7 +25,13 @@ admin.initializeApp({
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://your-frontend.vercel.app" // your deployed frontend
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Firebase Auth Middleware
@@ -81,7 +87,7 @@ let dbConnected = false;
 
 async function connectDB() {
   if (dbConnected) return;
-  
+
   try {
     await client.connect();
     const db = client.db("delivery");
