@@ -28,7 +28,7 @@ const MapSection = () => {
         e.preventDefault();
         const location = e.target.location.value;
         const district = locations.find(loc => loc.district.toLowerCase().includes(location.toLowerCase()));
-        if(district){
+        if (district) {
             const coord = [district.lat, district.lng];
             console.log(coord);
             mapRef.current.flyTo(coord, 12);
@@ -39,40 +39,40 @@ const MapSection = () => {
             .then(response => response.json())
             .then(data => setLocations(data))
             .catch(error => console.error('Error fetching location data:', error));
-    },[]);   
+    }, []);
     return (
-        <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'} p-4 md:p-8 roboto-normal text-center`}>
+        <div className={`dark:bg-gray-900 dark:text-white bg-white text-black p-4 md:p-8 roboto-normal text-center`}>
             <h1 className='roboto-bold text-5xl'>Our Headquaters</h1>
             <div className={`sm:w-[80%] mx-auto mt-10 relative`}>
                 <form onSubmit={handleSearch}>
-                    <label className="input absolute top-4 left-1/2 -translate-x-1/2 z-1000 bg-white shadow-lg w-[90%] max-w-md flex items-center gap-2">
-                    <svg className="h-5 w-5 cursor-pointer shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g
-                        strokeLinejoin="round"
-                        strokeLinecap="round"
-                        strokeWidth="2.5"
-                        fill="none"
-                        stroke="#000000"
-                        >
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.3-4.3"></path>
-                        </g>
-                    </svg>
-                    <input type="search" required placeholder="Search" className='text-black flex-1' name="location" />
+                    <label className="input absolute top-4 left-1/2 -translate-x-1/2 z-[1000] dark:bg-gray-800 bg-white shadow-lg w-[90%] max-w-md flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">
+                        <svg className="h-5 w-5 cursor-pointer shrink-0 dark:stroke-white stroke-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g
+                                strokeLinejoin="round"
+                                strokeLinecap="round"
+                                strokeWidth="2.5"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </g>
+                        </svg>
+                        <input type="search" required placeholder="Search" className='dark:text-white text-black flex-1 bg-transparent border-none outline-none' name="location" />
                     </label>
                 </form>
                 <MapContainer className='w-full h-[800px]' center={position} scrollWheelZoom={true} zoomControl={false} ref={mapRef}>
                     <ZoomControl position="bottomleft" />
                     <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     {
                         locations.map((location, index) => (
                             <Marker key={`${location.district}-${index}`} position={[location.lat, location.lng]}>
-                            <Popup>
-                                District: {location.district} <br /> Division: {location.division}
-                            </Popup>
+                                <Popup>
+                                    District: {location.district} <br /> Division: {location.division}
+                                </Popup>
                             </Marker>
                         ))
                     }

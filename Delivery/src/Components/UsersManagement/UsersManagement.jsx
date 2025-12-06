@@ -1,10 +1,12 @@
 import React from "react";
+import { useOutletContext } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const UsersManagement = () => {
   const axiosSecure = useAxiosSecure();
+  const { isDarkMode } = useOutletContext();
 
   // Fetch all users
   const { data: users = [], refetch, isLoading } = useQuery({
@@ -27,6 +29,8 @@ const UsersManagement = () => {
       showCancelButton: true,
       confirmButtonText: "Yes",
       cancelButtonText: "Cancel",
+      background: isDarkMode ? '#1f2937' : '#fff',
+      color: isDarkMode ? '#fff' : '#545454',
     });
 
     if (confirmResult.isConfirmed) {
@@ -43,6 +47,8 @@ const UsersManagement = () => {
           icon: "success",
           timer: 2000,
           showConfirmButton: false,
+          background: isDarkMode ? '#1f2937' : '#fff',
+          color: isDarkMode ? '#fff' : '#545454',
         });
       } catch (error) {
         console.error("Failed to update role:", error);
@@ -64,111 +70,128 @@ const UsersManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-slate-900 py-10 px-6">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-semibold text-gray-800 dark:text-white mb-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f172a] py-10 px-6 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-8 border-l-4 border-blue-500 pl-4">
           User Management
         </h1>
 
         {users.length === 0 ? (
-          <p className="text-gray-600 dark:text-gray-300 text-center">
-            No users found.
-          </p>
+          <div className="flex flex-col items-center justify-center p-10 bg-white dark:bg-gray-800 rounded-2xl shadow-sm">
+            <p className="text-gray-600 dark:text-gray-300 text-lg">No users found.</p>
+          </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-300 dark:border-slate-700">
-            <table className="min-w-full text-sm text-gray-700 dark:text-gray-300">
-              <thead className="bg-gray-200 dark:bg-slate-800 sticky top-0 z-10">
-                <tr>
-                  <th className="px-4 py-3 text-left">User ID</th>
-                  <th className="px-4 py-3 text-left">Name</th>
-                  <th className="px-4 py-3 text-left">Email</th>
-                  <th className="px-4 py-3 text-left">Role</th>
-                  <th className="px-4 py-3 text-left">Status</th>
-                  <th className="px-4 py-3 text-left">Joined Date</th>
-                  <th className="px-4 py-3 text-left">Actions</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {users.map((user) => (
-                  <tr
-                    key={user._id}
-                    className="border-t border-gray-200 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-800 transition"
-                  >
-                    <td className="px-4 py-3">{user._id}</td>
-                    <td className="px-4 py-3">{user.name || "N/A"}</td>
-                    <td className="px-4 py-3">{user.email}</td>
-
-                    <td className="px-4 py-3">
-                      <span
-                        className={`text-xs px-2 py-1 rounded-full
-                          ${
-                            user.role === "admin"
-                              ? "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300"
-                              : "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
-                          }
-                        `}
-                      >
-                        {user.role || "user"}
-                      </span>
-                    </td>
-
-                    <td className="px-4 py-3">
-                      <span
-                        className={`text-xs px-2 py-1 rounded-full
-                          ${
-                            user.status === "active"
-                              ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300"
-                              : "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
-                          }
-                        `}
-                      >
-                        {user.status || "active"}
-                      </span>
-                    </td>
-
-                    <td className="px-4 py-3">
-                      {user.createdAt
-                        ? new Date(user.createdAt).toLocaleDateString()
-                        : "N/A"}
-                    </td>
-
-                    <td className="px-4 py-3">
-                      <div className="flex gap-2">
-                        {/* Make Admin / Remove Admin */}
-                        {user.role !== "admin" ? (
-                          <button
-                            onClick={() =>
-                              handleUpdateRole(user._id, "admin")
-                            }
-                            className="text-purple-600 dark:text-purple-400 hover:underline text-xs"
-                          >
-                            Make Admin
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() =>
-                              handleUpdateRole(user._id, "user")
-                            }
-                            className="text-blue-600 dark:text-blue-400 hover:underline text-xs"
-                          >
-                            Remove Admin
-                          </button>
-                        )}
-
-                        <button className="text-blue-600 dark:text-blue-400 hover:underline text-xs">
-                          Edit
-                        </button>
-
-                        <button className="text-red-600 dark:text-red-400 hover:underline text-xs">
-                          Delete
-                        </button>
-                      </div>
-                    </td>
+          <div className="overflow-hidden rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 backdrop-blur-sm">
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm text-left">
+                <thead className="bg-gray-100 dark:bg-gray-900/80 text-gray-600 dark:text-gray-200 uppercase tracking-wider font-semibold border-b border-gray-200 dark:border-gray-700">
+                  <tr>
+                    <th className="px-6 py-4">Name / ID</th>
+                    <th className="px-6 py-4">Email</th>
+                    <th className="px-6 py-4">Role</th>
+                    <th className="px-6 py-4">Status</th>
+                    <th className="px-6 py-4">Joined Date</th>
+                    <th className="px-6 py-4">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  {users.map((user) => (
+                    <tr
+                      key={user._id}
+                      className="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                    >
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-900 dark:text-white text-base">
+                            {user.name || "N/A"}
+                          </span>
+                          <span className="text-xs text-gray-400 dark:text-gray-500 font-mono mt-0.5">
+                            {user._id}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-300 font-medium">
+                        {user.email}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <span
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border
+                            ${user.role === "admin"
+                              ? "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800"
+                              : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800"
+                            }
+                            `}
+                        >
+                          {user.role === "admin" ? "Admin" : "User"}
+                        </span>
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <span
+                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border
+                            ${user.status === "active"
+                              ? "bg-green-50 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800"
+                              : "bg-red-50 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800"
+                            }
+                            `}
+                        >
+                          {user.status || "active"}
+                        </span>
+                      </td>
+
+                      <td className="px-6 py-4 text-gray-500 dark:text-gray-400">
+                        {user.createdAt
+                          ? new Date(user.createdAt).toLocaleDateString(undefined, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                          })
+                          : "N/A"}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          {/* Make Admin / Remove Admin */}
+                          {user.role !== "admin" ? (
+                            <button
+                              onClick={() =>
+                                handleUpdateRole(user._id, "admin")
+                              }
+                              className="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium text-xs transition-colors"
+                            >
+                              Make Admin
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() =>
+                                handleUpdateRole(user._id, "user")
+                              }
+                              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-xs transition-colors"
+                            >
+                              Remove Admin
+                            </button>
+                          )}
+
+                          <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
+
+                          <button className="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            {/* Edit Icon */}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                          </button>
+
+                          <button className="text-gray-500 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                            {/* Delete Icon */}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>

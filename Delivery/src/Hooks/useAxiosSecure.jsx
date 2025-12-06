@@ -4,7 +4,7 @@ import { useAuth } from './useAuth';
 import { useNavigate } from 'react-router';
 
 const axiosSecure = axios.create({
-    baseURL: 'https://delivery-inky-xi.vercel.app',
+    baseURL: 'https://delivery-app-ebon.vercel.app/',
 })
 const useAxiosSecure = () => {
     const { user, logout } = useAuth();
@@ -27,9 +27,9 @@ const useAxiosSecure = () => {
             const statusCode = error.status;
             if (statusCode === 401 || statusCode === 403) {
                 logout()
-                .then(() => {
-                    navigate('/auth/login');
-                });
+                    .then(() => {
+                        navigate('/auth/login');
+                    });
             }
             return Promise.reject(error);
         })

@@ -14,12 +14,12 @@ const Root = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className={`min-h-screen flex flex-col ${isDarkMode ? 'dark' : ''}`} data-theme={isDarkMode ? "dark" : "light"}>
             <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
                 {
-                    location.pathname === '/' ? (<></>) : <NavBar />
+                    location.pathname === '/' ? (<></>) : <NavBar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
                 }
-                
+
                 <div className="grow">
                     <Outlet context={{ isDarkMode, toggleTheme }} />
                 </div>

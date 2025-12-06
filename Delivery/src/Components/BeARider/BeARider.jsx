@@ -1,4 +1,5 @@
 import React from 'react';
+import { useOutletContext } from 'react-router';
 import { useAuth } from '../../Hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
@@ -7,7 +8,7 @@ import Swal from 'sweetalert2';
 const BeARider = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-    const { register, handleSubmit,reset } = useForm({
+    const { register, handleSubmit, reset } = useForm({
         defaultValues: {
             fullName: user?.displayName || "",
             email: user?.email || "",
@@ -22,150 +23,162 @@ const BeARider = () => {
         }
     });
 
+    const { isDarkMode } = useOutletContext();
+
     const onSubmit = (data) => {
         console.log("Form Data:", data);
         axiosSecure.post('/rider', data)
-        .then(res => {
-            if(res.data.insertedId){
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Application Submitted Successfully!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                reset();
-            }
-        })
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Application Submitted Successfully!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        background: isDarkMode ? '#1f2937' : '#fff',
+                        color: isDarkMode ? '#fff' : '#545454',
+                    })
+                    reset();
+                }
+            })
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 text-black">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-xl space-y-5 border border-gray-200"
-            >
-                <h1 className="text-2xl font-semibold text-center text-gray-800">Become a Rider</h1>
-                <p className="text-center text-gray-500 text-sm">Provide the details below to apply as a rider.</p>
-
-                {/* Full Name */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Full Name</label>
-                    <input
-                        type="text"
-                        {...register("fullName", { required: true })}
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
-                {/* Email */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Email</label>
-                    <input
-                        type="email"
-                        {...register("email", { required: true })}
-                        defaultValue={user?.email || ""}
-                        placeholder="you@example.com"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
-                {/* Phone */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Phone Number</label>
-                    <input
-                        type="tel"
-                        {...register("phone", { required: true })}
-                        placeholder="01XXXXXXXXX"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#0f172a] py-12 px-4 transition-colors duration-300">
+            <div className="w-full max-w-2xl bg-white dark:bg-gray-800/60 backdrop-blur-md rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-center">
+                    <h1 className="text-3xl font-bold text-white mb-2">Become a Rider</h1>
+                    <p className="text-blue-100 opacity-90">Join our delivery network and start earning today</p>
                 </div>
 
-                {/* Address */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Address</label>
-                    <input
-                        type="text"
-                        {...register("address", { required: true })}
-                        placeholder="Your full address"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
+                <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Full Name */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+                            <input
+                                type="text"
+                                {...register("fullName", { required: "Full name is required" })}
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                                placeholder="Enter your full name"
+                            />
+                        </div>
 
-                {/* NID */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">NID Number</label>
-                    <input
-                        type="text"
-                        {...register("nidNumber", { required: true })}
-                        placeholder="Your National ID number"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
+                        {/* Email */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                            <input
+                                type="email"
+                                {...register("email", { required: true })}
+                                defaultValue={user?.email || ""}
+                                readOnly
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700/30 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                            />
+                        </div>
 
-                {/* License */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Driving License Number</label>
-                    <input
-                        type="text"
-                        {...register("drivingLicense", { required: true })}
-                        placeholder="Your license number"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
+                        {/* Phone */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone Number</label>
+                            <input
+                                type="tel"
+                                {...register("phone", { required: true })}
+                                placeholder="01XXXXXXXXX"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                            />
+                        </div>
 
-                {/* Vehicle Type */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Vehicle Type</label>
-                    <select
-                        {...register("vehicleType", { required: true })}
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                        {/* Vehicle Type */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Vehicle Type</label>
+                            <select
+                                {...register("vehicleType", { required: true })}
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                            >
+                                <option value="">Select vehicle type</option>
+                                <option value="bike">Bike</option>
+                                <option value="scooter">Scooter</option>
+                                <option value="bicycle">Bicycle</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Address */}
+                    <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Address</label>
+                        <input
+                            type="text"
+                            {...register("address", { required: true })}
+                            placeholder="Your full address"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* NID */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">NID Number</label>
+                            <input
+                                type="text"
+                                {...register("nidNumber", { required: true })}
+                                placeholder="National ID number"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                            />
+                        </div>
+
+                        {/* License */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Driving License</label>
+                            <input
+                                type="text"
+                                {...register("drivingLicense", { required: true })}
+                                placeholder="License number"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                            />
+                        </div>
+
+                        {/* Vehicle Number */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Vehicle Number</label>
+                            <input
+                                type="text"
+                                {...register("vehicleNumber", { required: true })}
+                                placeholder="Plate number"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                            />
+                        </div>
+
+                        {/* Experience */}
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Experience (Years)</label>
+                            <input
+                                type="number"
+                                {...register("experience", { required: true })}
+                                placeholder="E.g. 2"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Emergency Contact */}
+                    <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Emergency Contact</label>
+                        <input
+                            type="tel"
+                            {...register("emergencyContact", { required: true })}
+                            placeholder="01XXXXXXXXX"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5"
                     >
-                        <option value="">Select vehicle type</option>
-                        <option value="bike">Bike</option>
-                        <option value="scooter">Scooter</option>
-                        <option value="bicycle">Bicycle</option>
-                    </select>
-                </div>
-
-                {/* Vehicle Number */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Vehicle Number</label>
-                    <input
-                        type="text"
-                        {...register("vehicleNumber", { required: true })}
-                        placeholder="Plate number"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
-
-                {/* Experience */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Riding Experience (Years)</label>
-                    <input
-                        type="number"
-                        {...register("experience", { required: true })}
-                        placeholder="Example: 2"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
-
-                {/* Emergency Contact */}
-                <div className="space-y-2">
-                    <label className="block text-gray-700 font-medium">Emergency Contact Number</label>
-                    <input
-                        type="tel"
-                        {...register("emergencyContact", { required: true })}
-                        placeholder="01XXXXXXXXX"
-                        className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white p-3 rounded-xl text-lg font-medium hover:bg-blue-700 transition-all shadow-md"
-                >
-                    Submit Application
-                </button>
-            </form>
+                        Submit Application
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
