@@ -187,6 +187,16 @@ app.delete('/parcels/:id', async (req, res) => {
 // PAYMENT
 // ------------------------------
 
+app.get('/payments', verifFirebaseToken, verifyAdmin, async (req, res) => {
+  const email = req.query.email;
+  const query = {};
+  if(email){
+    if(email !== req.decodedEmail) return res.status(403).send({ message: 'Forbidden access' });
+    query.customerEmail = email;
+  }
+  res.send(await paymentCollection.find(query).toArray());
+})
+
 app.patch('/payment-success', async (req, res) => {
   const sessionId = req.query.session_id;
   const session = await stripe.checkout.sessions.retrieve(sessionId);
