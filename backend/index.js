@@ -27,7 +27,8 @@ admin.initializeApp({
 // Middleware
 app.use(cors({
   origin: [
-    "http://localhost:5173",  // your deployed frontend
+    "http://localhost:5173",
+    "https://delivery-app-e0827.web.app"  // your deployed frontend
   ],
   credentials: true
 }));
