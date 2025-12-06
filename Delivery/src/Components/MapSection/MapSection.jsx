@@ -44,9 +44,12 @@ const MapSection = () => {
         }
     };
     useEffect(() => {
-        fetch('./location.json')
+        fetch('/location.json')
             .then(response => response.json())
-            .then(data => setLocations(data))
+            .then(data => {
+                console.log('Locations loaded:', data);
+                setLocations(data);
+            })
             .catch(error => console.error('Error fetching location data:', error));
     }, []);
     return (
