@@ -27,8 +27,7 @@ admin.initializeApp({
 // Middleware
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "https://your-frontend.vercel.app" // your deployed frontend
+    "http://localhost:5173",  // your deployed frontend
   ],
   credentials: true
 }));
