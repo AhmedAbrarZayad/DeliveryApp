@@ -78,7 +78,7 @@ const client = new MongoClient(uri, {
 let parcelCollection, paymentCollection, userCollection, riderCollection, trackingCollection;
 
 async function connectDB() {
-  //await client.connect();
+  await client.connect();
   const db = client.db("delivery");
   parcelCollection = db.collection("parcels");
   paymentCollection = db.collection("payments");
