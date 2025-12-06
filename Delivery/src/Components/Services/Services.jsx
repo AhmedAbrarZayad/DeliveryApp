@@ -13,11 +13,11 @@ const Services = () => {
         fetch('./services.json').then(res => res.json()).then(data => setServices(data.services));
     }, []);
     return (
-        <div className={`dark:bg-gray-900 dark:text-white bg-white text-black p-4 md:p-8 roboto-normal`}>
-            <button className={`p-3 md:p-4 border-2 roboto-bold text-sm md:text-base dark:bg-gray-800 dark:border-blue-900 bg-white border-black rounded-3xl`}>Customer Centric Approach</button>
+        <div className={`p-4 md:p-8 roboto-normal ${isDarkMode ? 'bg-[#0f172a] text-white' : 'bg-white text-black'}`}>
+            <button className={`p-3 md:p-4 border-2 roboto-bold text-sm md:text-base rounded-3xl ${isDarkMode ? 'bg-gray-800 border-blue-900' : 'bg-white border-black'}`}>Customer Centric Approach</button>
             <div className='flex flex-col md:flex-row justify-between gap-4'>
                 <h1 className='text-2xl md:text-4xl mt-4 roboto-bold'>Experience Excellence</h1>
-                <p className={`roboto-normal w-full md:w-[40%] text-sm md:text-base dark:text-gray-300 text-black`}>We prioritize delivering top-notch services to our customers, making your satisfaction our top priority. Experience the difference with our dedicated team.</p>
+                <p className={`roboto-normal w-full md:w-[40%] text-sm md:text-base ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>We prioritize delivering top-notch services to our customers, making your satisfaction our top priority. Experience the difference with our dedicated team.</p>
             </div>
             <div className='mt-8 flex justify-center items-center'>
                 {services.length > 0 && (

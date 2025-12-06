@@ -14,7 +14,7 @@ const Root = () => {
     };
 
     return (
-        <div className={`min-h-screen flex flex-col ${isDarkMode ? 'dark' : ''}`} data-theme={isDarkMode ? "dark" : "light"}>
+        <div className={`min-h-screen flex flex-col ${isDarkMode ? 'dark bg-[#0f172a]' : 'bg-white'}`} data-theme={isDarkMode ? "dark" : "light"}>
             <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
                 {
                     location.pathname === '/' ? (<></>) : <NavBar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />

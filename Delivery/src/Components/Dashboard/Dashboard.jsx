@@ -30,7 +30,7 @@ const BarChartExample = ({ data }) => {
     );
 };
 
-const StatsCard = ({ width, height, children }) => {
+const StatsCard = ({ width, height, children, isDarkMode }) => {
     return (
         <Box
             sx={{
@@ -41,7 +41,7 @@ const StatsCard = ({ width, height, children }) => {
                     height: height,
                 },
             }}
-            className="dark:text-white text-black"
+            className={isDarkMode ? "text-white" : "text-black"}
         >
             {children}
         </Box>
@@ -72,12 +72,12 @@ const Dashboard = () => {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             minHeight: '100vh',
-        }} className='relative pb-8 dark:text-white text-black'>
+        }} className={`relative pb-8 ${isDarkMode ? 'text-white' : 'text-black'}`}>
             <NavBar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             <div className='flex flex-col lg:flex-row justify-between gap-6 lg:gap-0 px-4 lg:px-0'>
                 <div className='w-full lg:w-auto flex flex-col'>
-                    <StatsCard width={{ xs: '100%', sm: 300 }} height={180}>
-                        <Paper elevation={3} className={`border mt-10 lg:ml-3 dark:border-blue-900/50 border-gray-300`} sx={{
+                    <StatsCard width={{ xs: '100%', sm: 300 }} height={180} isDarkMode={isDarkMode}>
+                        <Paper elevation={3} className={`border mt-10 lg:ml-3 ${isDarkMode ? 'border-blue-900/50' : 'border-gray-300'}`} sx={{
                             borderRadius: '16px',
                             background: isDarkMode ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.9)',
                             backdropFilter: 'blur(10px)',
@@ -130,14 +130,14 @@ const Dashboard = () => {
                             <h2>150+</h2>
                         </div>
                     </div>
-                    <div className={`mt-10 lg:ml-3 backdrop-blur-sm p-5 rounded-2xl border dark:bg-white/5 dark:border-blue-900 bg-white/80 border-black border-2`} style={{ width: '100%', maxWidth: '300px' }}>
+                    <div className={`mt-10 lg:ml-3 backdrop-blur-sm p-5 rounded-2xl border ${isDarkMode ? 'bg-white/5 border-blue-900' : 'bg-white/80 border-black border-2'}`} style={{ width: '100%', maxWidth: '300px' }}>
                         <h1 className='roboto-bold text-2xl mb-5'>Parcels</h1>
                         <div className='mb-4'>
                             <h2 className='text-sm opacity-70 mb-1'>Monthly</h2>
                             <h2 className='text-3xl roboto-bold mb-1'>32,540</h2>
                             <p className='text-xs opacity-60'>+51% from last month</p>
                         </div>
-                        <Divider className="dark:bg-white/10 bg-black/10 my-4" />
+                        <Divider className={`${isDarkMode ? 'bg-white/10' : 'bg-black/10'} my-4`} />
                         <div>
                             <h2 className='text-sm opacity-70 mb-1'>Yearly</h2>
                             <h2 className='text-3xl roboto-bold mb-1'>1,387,456</h2>

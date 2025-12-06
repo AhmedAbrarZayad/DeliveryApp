@@ -213,7 +213,7 @@ const AddAParcel = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Sender Information */}
                         <div className={`rounded-2xl shadow-xl border overflow-hidden ${isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-gray-100'}`}>
-                            <div className="p-6 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800">
+                            <div className={`p-6 border-b ${isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-gray-100 bg-gray-50/50'}`}>
                                 <h2 className={`text-xl font-bold flex items-center gap-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
                                     <span>👤</span> Sender Details
                                 </h2>
@@ -266,7 +266,7 @@ const AddAParcel = () => {
 
                         {/* Receiver Information */}
                         <div className={`rounded-2xl shadow-xl border overflow-hidden ${isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-gray-100'}`}>
-                            <div className="p-6 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800">
+                            <div className={`p-6 border-b ${isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-gray-100 bg-gray-50/50'}`}>
                                 <h2 className={`text-xl font-bold flex items-center gap-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
                                     <span>📍</span> Receiver Details
                                 </h2>
@@ -309,7 +309,7 @@ const AddAParcel = () => {
 
                     {/* Package Details */}
                     <div className={`rounded-2xl shadow-xl border overflow-hidden ${isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-gray-100'}`}>
-                        <div className="p-6 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800">
+                        <div className={`p-6 border-b ${isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-gray-100 bg-gray-50/50'}`}>
                             <h2 className={`text-xl font-bold flex items-center gap-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
                                 <span>📦</span> Package Details
                             </h2>
@@ -357,7 +357,7 @@ const AddAParcel = () => {
                                 </div>
                             </div>
 
-                            <div className="flex flex-wrap gap-6 p-4 rounded-xl border border-dashed border-gray-300 dark:border-slate-600 bg-gray-50/50 dark:bg-slate-900/30">
+                            <div className={`flex flex-wrap gap-6 p-4 rounded-xl border border-dashed ${isDarkMode ? 'border-slate-600 bg-slate-900/30' : 'border-gray-300 bg-gray-50/50'}`}>
                                 <label className="flex items-center gap-3 cursor-pointer group">
                                     <div className="relative flex items-center">
                                         <input type="checkbox" className="peer sr-only" {...register('isFragile')} />
@@ -373,8 +373,8 @@ const AddAParcel = () => {
                     <div className={`rounded-2xl shadow-xl border overflow-hidden p-6 ${isDarkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-gray-100'}`}>
                         <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
                             <div className="w-full md:w-1/2">
-                                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Estimated Cost</div>
-                                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                                <div className={`text-sm mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Estimated Cost</div>
+                                <div className={`text-3xl font-bold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
                                     {calculatedPrice > 0 ? `৳ ${calculatedPrice.toFixed(2)}` : '৳ 0.00'}
                                 </div>
                                 <button type="button" onClick={handleCalculatePrice} className="text-sm text-blue-500 hover:text-blue-600 hover:underline mt-1">

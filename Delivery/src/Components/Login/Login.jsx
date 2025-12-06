@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router';
 import { useAuth } from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { LogOut } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const {
@@ -23,6 +24,14 @@ const Login = () => {
         setAuthError('');
         try {
             await login(data.email, data.password);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Logged in successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true
+            });
             navigate('/');
         } catch (error) {
             if (error.code === 'auth/invalid-credential') {
@@ -53,6 +62,14 @@ const Login = () => {
             const response = await axiosSecure.post('/users', userInfo);
             console.log('User data response:', response);
             console.log('User created in database');
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Logged in with Google!',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true
+            });
             navigate('/');
         } catch (error) {
             if (error.code === 'auth/account-exists-with-different-credential') {
@@ -65,13 +82,14 @@ const Login = () => {
         }
     };
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-[#0f172a] relative overflow-hidden transition-colors duration-300">
+        <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 dark:bg-[#0f172a] relative overflow-hidden transition-colors duration-300 p-4">
             {/* Background elements */}
+            <div className="absolute inset-0 bg-gray-100 dark:bg-[#0f172a] -z-10"></div>
             <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-500/30 rounded-full blur-[100px]" />
             <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-500/30 rounded-full blur-[100px]" />
 
-            <div className="card w-full max-w-md bg-white/80 dark:bg-black/40 backdrop-blur-xl shadow-2xl border border-white/20 dark:border-white/10 relative z-10 m-4">
-                <div className="card-body">
+            <div className="card w-full max-w-md h-auto bg-white/80 dark:bg-black/40 backdrop-blur-xl shadow-2xl border border-white/20 dark:border-white/10 relative z-10">
+                <div className="card-body p-8">
                     <h2 className="text-3xl font-bold text-center mb-6 dark:text-white">Welcome Back</h2>
 
                     <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">

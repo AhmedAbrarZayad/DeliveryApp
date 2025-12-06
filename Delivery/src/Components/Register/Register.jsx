@@ -4,6 +4,7 @@ import { useAuth } from '../../Hooks/useAuth';
 import { NavLink, useNavigate } from 'react-router';
 import axios from 'axios';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const {
@@ -84,6 +85,14 @@ const Register = () => {
                     await updateUserProfile(userProfile);
 
                     // Step 4: Navigate to home only after everything succeeds
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Account created successfully!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        toast: true
+                    });
                     navigate('/');
                     return res;
                 })
@@ -120,6 +129,14 @@ const Register = () => {
             };
             await axiosSecure.post('/users', userInfo);
             console.log('User created in database');
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Account created with Google!',
+                showConfirmButton: false,
+                timer: 1500,
+                toast: true
+            });
             navigate('/');
         } catch (error) {
             if (error.code === 'auth/account-exists-with-different-credential') {
@@ -132,10 +149,11 @@ const Register = () => {
         }
     };
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-[#0f172a] relative overflow-hidden transition-colors duration-300 py-10">
+        <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 dark:bg-[#0f172a] relative overflow-hidden transition-colors duration-300 py-10 px-4">
             {/* Background elements */}
+            <div className="absolute inset-0 bg-gray-100 dark:bg-[#0f172a] -z-10"></div>
             <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-500/30 rounded-full blur-[100px]" />
-            <div className="absolute bottom[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-500/30 rounded-full blur-[100px]" />
+            <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-500/30 rounded-full blur-[100px]" />
 
             <div className="card w-full max-w-lg bg-white/80 dark:bg-black/40 backdrop-blur-xl shadow-2xl border border-white/20 dark:border-white/10 relative z-10 m-4">
                 <div className="card-body">

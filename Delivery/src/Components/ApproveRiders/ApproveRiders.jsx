@@ -3,11 +3,13 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../Hooks/useAuth';
+import { useOutletContext } from 'react-router';
 
 const ApproveRiders = () => {
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
     const { user } = useAuth();
+    const { isDarkMode } = useOutletContext();
     const { data: riders = [], isLoading } = useQuery({
         queryKey: ['riders', 'pending'],
         queryFn: async () => {
@@ -26,7 +28,9 @@ const ApproveRiders = () => {
                     icon: 'success',
                     title: 'Rider Approved Successfully!',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    background: isDarkMode ? '#1f2937' : '#fff',
+                    color: isDarkMode ? '#fff' : '#545454',
                 });
                 queryClient.invalidateQueries(['riders', 'pending']);
 
@@ -43,7 +47,9 @@ const ApproveRiders = () => {
                     icon: 'success',
                     title: 'Rider Rejected Successfully!',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    background: isDarkMode ? '#1f2937' : '#fff',
+                    color: isDarkMode ? '#fff' : '#545454',
                 })
                 queryClient.invalidateQueries(['riders', 'pending']);
 

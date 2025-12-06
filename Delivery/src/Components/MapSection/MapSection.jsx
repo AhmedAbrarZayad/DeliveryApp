@@ -41,12 +41,12 @@ const MapSection = () => {
             .catch(error => console.error('Error fetching location data:', error));
     }, []);
     return (
-        <div className={`dark:bg-gray-900 dark:text-white bg-white text-black p-4 md:p-8 roboto-normal text-center`}>
+        <div className={`p-4 md:p-8 roboto-normal text-center ${isDarkMode ? 'bg-[#0f172a] text-white' : 'bg-white text-black'}`}>
             <h1 className='roboto-bold text-5xl'>Our Headquaters</h1>
             <div className={`sm:w-[80%] mx-auto mt-10 relative`}>
                 <form onSubmit={handleSearch}>
-                    <label className="input absolute top-4 left-1/2 -translate-x-1/2 z-[1000] dark:bg-gray-800 bg-white shadow-lg w-[90%] max-w-md flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">
-                        <svg className="h-5 w-5 cursor-pointer shrink-0 dark:stroke-white stroke-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <label className={`input absolute top-4 left-1/2 -translate-x-1/2 z-[1000] shadow-lg w-[90%] max-w-md flex items-center gap-2 px-4 py-2 rounded-full border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+                        <svg className={`h-5 w-5 cursor-pointer shrink-0 ${isDarkMode ? 'stroke-white' : 'stroke-black'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g
                                 strokeLinejoin="round"
                                 strokeLinecap="round"
@@ -58,7 +58,7 @@ const MapSection = () => {
                                 <path d="m21 21-4.3-4.3"></path>
                             </g>
                         </svg>
-                        <input type="search" required placeholder="Search" className='dark:text-white text-black flex-1 bg-transparent border-none outline-none' name="location" />
+                        <input type="search" required placeholder="Search" className={`flex-1 bg-transparent border-none outline-none ${isDarkMode ? 'text-white' : 'text-black'}`} name="location" />
                     </label>
                 </form>
                 <MapContainer className='w-full h-[800px]' center={position} scrollWheelZoom={true} zoomControl={false} ref={mapRef}>
