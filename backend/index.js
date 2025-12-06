@@ -77,17 +77,34 @@ const client = new MongoClient(uri, {
 
 let parcelCollection, paymentCollection, userCollection, riderCollection, trackingCollection;
 
+let dbConnected = false;
+
 async function connectDB() {
-  await client.connect();
-  const db = client.db("delivery");
-  parcelCollection = db.collection("parcels");
-  paymentCollection = db.collection("payments");
-  userCollection = db.collection("users");
-  riderCollection = db.collection("riders");
-  trackingCollection = db.collection("tracking");
+  if (dbConnected) return;
+  
+  try {
+    await client.connect();
+    const db = client.db("delivery");
+    parcelCollection = db.collection("parcels");
+    paymentCollection = db.collection("payments");
+    userCollection = db.collection("users");
+    riderCollection = db.collection("riders");
+    trackingCollection = db.collection("tracking");
+    dbConnected = true;
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    throw error;
+  }
 }
 
-connectDB();
+// Middleware to ensure DB is connected before handling requests
+app.use(async (req, res, next) => {
+  if (!dbConnected) {
+    await connectDB();
+  }
+  next();
+});
 
 // Tracking Logger
 const logTracking = async (trackingId, status, email, pickupEmail = 'None') => {
