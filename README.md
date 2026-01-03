@@ -15,8 +15,8 @@
 
 ## 📸 Project Screenshot
 
-![Delivery App Screenshot](./screenshot.png)
-> *Add your application screenshot here*
+![Delivery App Dashboard](./assets/dashboard-screenshot.png)
+*Admin Dashboard featuring real-time delivery tracking with interactive world map, order statistics, and delivery status indicators*
 
 ---
 
