@@ -187,7 +187,7 @@ app.delete('/parcels/:id', async (req, res) => {
 // PAYMENT
 // ------------------------------
 
-app.get('/payments', verifFirebaseToken, verifyAdmin, async (req, res) => {
+app.get('/payments', verifFirebaseToken, async (req, res) => {
   const email = req.query.email;
   const query = {};
   if(email){
