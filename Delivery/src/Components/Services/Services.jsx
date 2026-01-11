@@ -19,14 +19,20 @@ const Services = () => {
                 <h1 className='text-2xl md:text-4xl mt-4 roboto-bold'>Experience Excellence</h1>
                 <p className={`roboto-normal w-full md:w-[40%] text-sm md:text-base ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>We prioritize delivering top-notch services to our customers, making your satisfaction our top priority. Experience the difference with our dedicated team.</p>
             </div>
-            <div className='mt-8 flex justify-center items-center'>
+            <div className='mt-8 flex justify-center items-center overflow-hidden'>
                 {services.length > 0 && (
                     <Swiper
                         effect={'coverflow'}
                         grabCursor={true}
                         centeredSlides={true}
                         loop={true}
-                        slidesPerView={3}
+                        slidesPerView={1}
+                        spaceBetween={30}
+                        breakpoints={{
+                            768: {
+                                slidesPerView: 3,
+                            }
+                        }}
                         coverflowEffect={{
                             rotate: 50,
                             stretch: 0.75,
@@ -39,7 +45,7 @@ const Services = () => {
                             disableOnInteraction: false,
                         }}
                         modules={[EffectCoverflow, Autoplay]}
-                        className="mySwiper"
+                        className="mySwiper w-[85%] md:w-full"
                     >
                         {
                             services.map((service, index) => (
